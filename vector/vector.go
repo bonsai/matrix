@@ -1,5 +1,7 @@
 package vector
 
+import "math"
+
 // Sparse is a sparse vector keyed by ontology/tag ID.
 type Sparse map[string]float64
 
@@ -7,12 +9,8 @@ type Sparse map[string]float64
 func (v Sparse) Normalize() Sparse {
 	var max float64
 	for _, x := range v {
-		if x < 0 {
-			x = -x
-		}
-		if x > max {
-			max = x
-		}
+		if x < 0 { x = -x }
+		if x > max { max = x }
 	}
 	out := make(Sparse, len(v))
 	if max == 0 {
@@ -32,6 +30,4 @@ func Dot(a, b Sparse) float64 {
 }
 
 // Norm returns the Euclidean norm.
-func Norm(v Sparse) float64 {
-	return Dot(v, v) ** 0.5
-}
+func Norm(v Sparse) float64 { return math.Sqrt(Dot(v, v)) }
