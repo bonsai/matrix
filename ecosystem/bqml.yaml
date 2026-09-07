@@ -1,0 +1,290 @@
+# Bonsai BQML Ecosystem
+# Ontology = meaning / Synapse = relationship / Matrix = computation
+# BigQuery = analytical data / BQML = learning / Agent = action
+
+ecosystem:
+  id: bonsai-bqml
+  name: Bonsai BQML Ecosystem
+  version: "0.1"
+  purpose:
+    - observe
+    - measure
+    - learn
+    - predict
+    - cluster
+    - optimize
+    - self_organize
+  principle:
+    ontology: meaning
+    synapse: relationship
+    matrix: computation
+    bigquery: analytical_data
+    bqml: learning
+    agent: action
+
+entities:
+  repositories:
+    source: github
+    role: observation
+  ontology:
+    repo: bonsai/ontology
+    role: semantic_model
+  synapse:
+    repo: bonsai/synapse
+    role: relationship_model
+  matrix:
+    repo: bonsai/matrix
+    language: go
+    role: computation
+  bigquery:
+    provider: gcp
+    role: analytical_store
+  bqml:
+    provider: gcp
+    role: machine_learning
+  agents:
+    role: execution
+
+pipeline:
+  observe:
+    input: real_world
+    output: raw_observations
+  normalize:
+    input: raw_observations
+    output: normalized_records
+  semanticize:
+    engine: ontology
+    output: tags_and_concepts
+  connect:
+    engine: synapse
+    output: weighted_edges
+  calculate:
+    engine: matrix
+    output:
+      - vectors
+      - matrices
+      - scores
+      - features
+  project:
+    destination: bigquery
+    output: feature_tables
+  learn:
+    engine: bqml
+    output:
+      - models
+      - clusters
+      - predictions
+      - learned_weights
+  feedback:
+    output:
+      - evidence
+      - updated_weights
+      - new_relations
+      - ontology_candidates
+  reorganize:
+    output:
+      - updated_ontology
+      - updated_synapse
+      - new_agents
+      - new_workflows
+
+bigquery_schema:
+  raw:
+    - observations
+    - github_events
+    - business_events
+    - user_events
+  semantic:
+    - ontology_tags
+    - ontology_relations
+    - entities
+  graph:
+    - synapses
+  matrix:
+    - vectors
+    - matrix_features
+    - match_features
+  ml:
+    - training_features
+    - predictions
+    - clusters
+    - learned_weights
+    - model_metrics
+  evidence:
+    - outcomes
+    - feedback
+    - model_evidence
+
+models:
+  repo_health:
+    type: regression
+    input: repo_features
+    output: health_score
+  ecosystem_cluster:
+    type: kmeans
+    input:
+      - repo_features
+      - synapse_features
+    output: cluster_id
+  human_matching:
+    type: regression
+    input: match_features
+    output: match_score
+  recommendation:
+    type: classification
+    input:
+      - person_vector
+      - item_vector
+      - synapse_features
+    output: recommendation_probability
+  anomaly:
+    type: anomaly_detection
+    input: time_series_features
+    output: anomaly_score
+  forecasting:
+    type: forecasting
+    input: historical_events
+    output: future_value
+
+learning_loop:
+  - step: observe
+    from: real_world
+    to: bigquery
+  - step: feature_engineering
+    from: bigquery
+    to: matrix
+  - step: train
+    from: matrix
+    to: bqml
+  - step: predict
+    from: bqml
+    to: matrix
+  - step: act
+    from: matrix
+    to: agents
+  - step: measure
+    from: agents
+    to: bigquery
+  - step: learn_again
+    from: bigquery
+    to: bqml
+
+self_organization:
+  enabled: true
+  cycle:
+    - observe
+    - tag
+    - connect
+    - vectorize
+    - learn
+    - cluster
+    - evaluate
+    - reorganize
+    - validate
+    - declare
+  outputs:
+    - new_domains
+    - new_capabilities
+    - new_agents
+    - new_workflows
+    - new_synapses
+    - ontology_changes
+  governance:
+    observed: raw_evidence
+    inferred: model_inference
+    proposed: candidate_structure
+    validated: validated_structure
+    declared: ontology_truth
+
+interfaces:
+  matrix:
+    protocol: go
+    role: computation
+  bigquery:
+    protocol: sql
+    adapter: matrix/bq
+  bqml:
+    protocol: sql
+    adapter: bigquery
+  mcp:
+    protocol: mcp
+    adapter: matrix/mcp
+  rails:
+    protocol: http
+    consumer: matrix
+  agents:
+    protocol:
+      - mcp
+      - cli
+      - workflow
+
+architecture:
+  layers:
+    - name: world
+      responsibility: real_world_events
+    - name: observation
+      responsibility: collect_data
+    - name: semantic
+      components:
+        - ontology
+        - synapse
+    - name: computation
+      component: matrix
+    - name: analytics
+      component: bigquery
+    - name: learning
+      component: bqml
+    - name: execution
+      component: agents
+  graph: |
+    Real World
+        |
+        v
+    Observation
+        |
+        v
+    Ontology -------- Synapse
+        |                |
+        +-------+--------+
+                |
+                v
+           Matrix (Go)
+                |
+                v
+           BigQuery
+                |
+                v
+              BQML
+                |
+        +-------+--------+
+        |       |        |
+        v       v        v
+     Cluster Prediction Learning
+        |       |        |
+        +-------+--------+
+                |
+                v
+           Matrix (Go)
+                |
+                v
+             Agents
+                |
+                v
+           Real World
+                |
+                +------ Evidence ------>
+
+principle:
+  statement: >
+    BQML is not the source of truth. BQML learns from projections
+    of Ontology, Synapse and Matrix, then returns learned evidence
+    and weights to the ecosystem.
+  source_of_truth:
+    - ontology
+    - synapse
+    - observed_data
+  learned_layer:
+    - bqml_models
+    - clusters
+    - predictions
+    - learned_weights
